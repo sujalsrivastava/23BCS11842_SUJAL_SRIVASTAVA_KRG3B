@@ -1,42 +1,52 @@
 # API Documentation
 
-## 📌 Base URL
-http://localhost:8080/api
+## Auth APIs
 
----
-
-## 🔑 Authentication APIs
-
-### POST /auth/register
-Register a new user
-
-### POST /auth/login
-Login user
-
----
-
-## 📦 Item APIs
-
-### GET /items
-Fetch all items
-
-### GET /items/{id}
-Fetch item by ID
-
-### POST /items
-Create new item
-
-### PUT /items/{id}
-Update item
-
-### DELETE /items/{id}
-Delete item
-
----
-
-## 📌 Request Example
-```json
+### Register
+POST /api/register
+Body:
 {
-  "name": "Item 1",
-  "description": "Sample item"
+  "name": "user",
+  "email": "user@mail.com",
+  "password": "1234"
 }
+
+---
+
+### Login
+POST /api/login
+
+Response:
+{
+  "token": "JWT_TOKEN"
+}
+
+---
+
+## Listing APIs
+
+### Add Listing
+POST /api/listings
+
+### Get Listing
+GET /api/listings/{id}
+
+---
+
+## Search API
+GET /api/search?q=location
+
+---
+
+## Review API
+POST /api/review
+
+---
+
+## Booking API
+POST /api/book
+
+---
+
+## Notification
+Triggered internally after booking
