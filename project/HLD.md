@@ -1,54 +1,55 @@
+# High Level Design (HLD)
 
-# High-Level Design (HLD)
+## Overview
+This system is a scalable hotel rental / listing platform where users can:
+- Search listings
+- Add listings
+- Book hotels
+- Add reviews
 
-## 📌 Overview
-This project is a full-stack storage management system built using React (Vite) for the frontend and Spring Boot for the backend.
+## Architecture Components
 
----
+### 1. API Gateway + Load Balancer
+- Handles authentication, authorization
+- Routes requests to services
+- Rate limiting
 
-## 🏗️ Architecture
+### 2. User Service
+- User registration & login
+- JWT-based session management
 
-### Frontend
-- React (Vite)
-- Handles UI and user interaction
-- Communicates with backend via REST APIs
+### 3. Search Service
+- Handles search queries
+- Uses ElasticSearch for fast retrieval
 
-### Backend
-- Spring Boot (Java)
-- Provides REST APIs
-- Handles business logic
+### 4. Listing Service
+- Add/View listings
+- Stores data in Listing DB
 
-### Database
-- (Add: MySQL / PostgreSQL / MongoDB depending on your project)
+### 5. Review Service
+- Users can add reviews
+- Stored in Review DB
 
----
+### 6. Booking + Checkout Service
+- Handles booking flow
+- Uses Redis locking to prevent double booking
 
-## 🔄 System Flow
-1. User interacts with React UI
-2. React sends HTTP request (Axios/Fetch)
-3. Spring Boot processes request
-4. Data is stored/retrieved from database
-5. JSON response returned to frontend
-6. UI updates dynamically
+### 7. Notification Service
+- Sends booking confirmation
+- Uses FCM/APNS
 
----
+### 8. CDC Pipeline
+- Syncs DB changes to ElasticSearch
+- Uses streaming service
 
-## 📦 Components
-- React UI (Components, Pages)
-- REST API (Spring Boot Controllers)
-- Service Layer (Business Logic)
-- Repository Layer (Database access)
+### 9. Third Party Services
+- Mapbox (location services)
+- Cloudinary (image storage)
 
----
+## Databases
+- MongoDB (Listings, Users)
+- ElasticSearch (Search)
+- Redis (Locking, Cache)
 
-## 🧱 Architecture Pattern
-- MVC (Spring Boot)
-- Component-based (React)
-
----
-
-## ⚙️ Technologies Used
-- React + Vite
-- Java + Spring Boot
-- REST APIs
-- Database (MySQL/PostgreSQL)
+## Flow
+Client → API Gateway → Services → DB/Cache → Response
