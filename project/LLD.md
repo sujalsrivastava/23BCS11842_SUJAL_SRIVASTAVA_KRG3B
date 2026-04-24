@@ -1,65 +1,57 @@
-# Low-Level Design (LLD)
+# Low Level Design (LLD)
 
-## 📌 Overview
-This document explains the internal structure of frontend and backend.
+## User Service
+### APIs
+- Register User
+- Login User (JWT)
 
----
-
-## 🧩 Frontend (React)
-
-### Folder Structure
-- src/components → reusable UI components
-- src/pages → main screens
-- src/api → API calls
-- src/store → state management
-
-### Key Files
-- App.jsx → main component
-- main.jsx → entry point
-
----
-
-## 🔌 Backend (Spring Boot)
-
-### Layers
-
-#### Controller Layer
-- Handles HTTP requests
-- Example:
-  - /api/items
-  - /api/users
-
-#### Service Layer
-- Business logic
-- Processes data before sending to DB
-
-#### Repository Layer
-- Uses JPA/Hibernate
-- Communicates with database
-
----
-
-## 🗄️ Database Design
-
-### Example Entity: User
-- id (Primary Key)
+### Schema
+User:
+- user_id
 - name
 - email
-- password
+- password_hash
 
-### Example Entity: Item
-- id
+---
+
+## Listing Service
+### Schema
+Listing:
+- listing_id
 - name
 - description
-- created_at
+- location
+- price
+- images
+- user_id
 
 ---
 
-## 🔁 Data Flow
-Client → Controller → Service → Repository → Database → Response
+## Review Service
+### Schema
+Review:
+- review_id
+- listing_id
+- user_id
+- rating
+- comment
 
 ---
 
-## 🔐 Authentication (if implemented)
-- JWT-based authentication
-- Login / Signup APIs
+## Booking Service
+### Logic
+1. Check availability
+2. Lock using Redis
+3. Process payment
+4. Confirm booking
+
+---
+
+## Search Service
+- Queries ElasticSearch
+- Returns listing IDs
+
+---
+
+## CDC Pipeline
+- DB → Connector → Streaming → ElasticSearch
